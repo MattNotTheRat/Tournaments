@@ -1,43 +1,23 @@
 CREATE TABLE [User] (
-	Id int NOT NULL,
-	Name nvarchar(50) NOT NULL,
-  CONSTRAINT [PK_USER] PRIMARY KEY CLUSTERED
-  (
-  [Id] ASC
-  ) WITH (IGNORE_DUP_KEY = OFF)
-
+	[Id] int primary key identity,
+	[Name] nvarchar(50) NOT NULL,
 )
 GO
 CREATE TABLE [Tournament] (
-	Id int NOT NULL,
-	Name nvarchar(50) NOT NULL,
+	[Id] int primary key identity,
+	[Name] nvarchar(50) NOT NULL,
 	DisciplineId int NOT NULL,
 	OwnerId int NOT NULL,
-  CONSTRAINT [PK_TOURNAMENT] PRIMARY KEY CLUSTERED
-  (
-  [Id] ASC
-  ) WITH (IGNORE_DUP_KEY = OFF)
-
 )
 GO
 CREATE TABLE [Discipline] (
-	Id int NOT NULL,
+	[Id] int primary key identity,
 	Name nvarchar(50) NOT NULL,
-  CONSTRAINT [PK_DISCIPLINE] PRIMARY KEY CLUSTERED
-  (
-  [Id] ASC
-  ) WITH (IGNORE_DUP_KEY = OFF)
-
 )
 GO
 CREATE TABLE [Team] (
-	Id int NOT NULL,
-	Name nvarchar(50) NOT NULL,
-  CONSTRAINT [PK_TEAM] PRIMARY KEY CLUSTERED
-  (
-  [Id] ASC
-  ) WITH (IGNORE_DUP_KEY = OFF)
-
+  	[Id] int primary key identity,
+	[Name] nvarchar(50) NOT NULL,
 )
 GO
 CREATE TABLE [User_Team] (
@@ -54,13 +34,8 @@ CREATE TABLE [Match] (
 )
 GO
 CREATE TABLE [WinType] (
-	Id int NOT NULL,
-	Name nvarchar(50) NOT NULL,
-  CONSTRAINT [PK_WINTYPE] PRIMARY KEY CLUSTERED
-  (
-  [Id] ASC
-  ) WITH (IGNORE_DUP_KEY = OFF)
-
+	[Id] int primary key identity,
+	[Name] nvarchar(50) NOT NULL,
 )
 GO
 CREATE TABLE [Team_Tournament] (
