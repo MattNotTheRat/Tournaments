@@ -41,7 +41,8 @@ GO
 CREATE TABLE [Team_Tournament] (
 	TeamId int NOT NULL,
 	TournamentId int NOT NULL,
-	Mesto int NOT NULL
+	Mesto int NOT NULL,
+	[Time] int NOT NULL
 )
 GO
 
