@@ -105,29 +105,29 @@ ALTER TABLE [Team_Tournament] CHECK CONSTRAINT [Team_Tournament_fk1]
 GO
 
 
-insert [User]
-Values ('Костя'),('Матвей'),('Вера'),('Паша'),('Кирилл'),('Гриша'),('Слава'),('Алина'),('Вова'),('Настя')
-
-insert [Team]
-Values ('Звёздочки'),('Победители')
-
-insert [User_Team]
-Values (1,1),(2,1),(3,1),(4,1),(5,1),(6,2),(7,2),(8,2),(9,2),(10,2)
-
-insert [Discipline]
-Values ('Волейбол')
-
-insert [Tournament]
-Values ('Чемпионат России', 1, 1)
-
-insert [Team_Tournament]
-Values (1,1,'Школа ЦО Кудрова', 1240), (2,1,'Школа ЦО Кудрова', 1240)
-
-insert [WinType]
-Values ('Победили'),('Проиграли')
-
-insert [Match]
-Values (1,1,2,1,1),(1,1,2,2,2)
+insert [User] 
+Values ('РљРѕСЃС‚СЏ'),('РњР°С‚РІРµР№'),('Р’РµСЂР°'),('РџР°С€Р°'),('РљРёСЂРёР»Р»'),('Р“СЂРёС€Р°'),('РЎР»Р°РІР°'),('РђР»РёРЅР°'),('Р’РѕРІР°'),('РќР°СЃС‚СЏ') 
+ 
+insert [Team] 
+Values ('Р—РІС‘Р·РґРѕС‡РєРё'),('РџРѕР±РµРґРёС‚РµР»Рё') 
+ 
+insert [User_Team] 
+Values (1,1),(2,1),(3,1),(4,1),(5,1),(6,2),(7,2),(8,2),(9,2),(10,2) 
+ 
+insert [Discipline] 
+Values ('Р’РѕР»РµР№Р±РѕР»') 
+ 
+insert [Tournament] 
+Values ('Р§РµРјРїРёРѕРЅР°С‚ Р РѕСЃСЃРёРё', 1, 1) 
+ 
+insert [Team_Tournament] 
+Values (1,1,'РЁРєРѕР»Р° Р¦Рћ РљСѓРґСЂРѕРІР°', 1240), (2,1,'РЁРєРѕР»Р° Р¦Рћ РљСѓРґСЂРѕРІР°', 1240) 
+ 
+insert [WinType] 
+Values ('РџРѕР±РµРґРёР»Рё'),('РџСЂРѕРёРіСЂР°Р»Рё') 
+ 
+insert [Match] 
+Values (1,1,2,1,1),(1,1,2,2,2) 
 
 select * from [User]
 select * from [Team]
