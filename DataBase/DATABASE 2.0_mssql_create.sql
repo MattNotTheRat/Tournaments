@@ -103,3 +103,35 @@ GO
 ALTER TABLE [Team_Tournament] CHECK CONSTRAINT [Team_Tournament_fk1]
 GO
 
+insert [User]
+Values ('Костя'),('Матвей'),('Вера'),('Паша'),('Кирилл'),('Гриша'),('Слава'),('Алина'),('Вова'),('Настя')
+
+insert [Team]
+Values ('Звёздочки'),('Победители')
+
+insert [User_Team]
+Values (1,1),(2,1),(3,1),(4,1),(5,1),(6,2),(7,2),(8,2),(9,2),(10,2)
+
+insert [Discipline]
+Values ('Волейбол')
+
+insert [Tournament]
+Values ('Чемпионат России', 1, 1)
+
+insert [Team_Tournament]
+Values (1,1,'Школа ЦО Кудрова', 1240), (2,1,'Школа ЦО Кудрова', 1240)
+
+insert [WinType]
+Values ('Победили'),('Проиграли')
+
+insert [Match]
+Values (1,1,2,1,1),(1,1,2,2,2)
+
+select * from [User]
+select * from [Team]
+select * from [User_Team]
+select * from [Discipline]
+select * from [Tournament]
+select * from [Team_Tournament]
+select * from [WinType]
+select * from [Match]
