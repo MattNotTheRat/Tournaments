@@ -1,3 +1,5 @@
+create database Tournament
+use Tournament
 CREATE TABLE [User] (
 	[Id] int primary key identity,
 	[Name] nvarchar(50) NOT NULL,
@@ -103,29 +105,30 @@ GO
 ALTER TABLE [Team_Tournament] CHECK CONSTRAINT [Team_Tournament_fk1]
 GO
 
-insert [User]
-Values ('РљРѕСЃС‚СЏ'),('РњР°С‚РІРµР№'),('Р’РµСЂР°'),('РџР°С€Р°'),('РљРёСЂРёР»Р»'),('Р“СЂРёС€Р°'),('РЎР»Р°РІР°'),('РђР»РёРЅР°'),('Р’РѕРІР°'),('РќР°СЃС‚СЏ')
 
-insert [Team]
-Values ('Р—РІС‘Р·РґРѕС‡РєРё'),('РџРѕР±РµРґРёС‚РµР»Рё')
-
-insert [User_Team]
-Values (1,1),(2,1),(3,1),(4,1),(5,1),(6,2),(7,2),(8,2),(9,2),(10,2)
-
-insert [Discipline]
-Values ('Р’РѕР»РµР№Р±РѕР»')
-
-insert [Tournament]
-Values ('Р§РµРјРїРёРѕРЅР°С‚ Р РѕСЃСЃРёРё', 1, 1)
-
-insert [Team_Tournament]
-Values (1,1,'РЁРєРѕР»Р° Р¦Рћ РљСѓРґСЂРѕРІР°', 1240), (2,1,'РЁРєРѕР»Р° Р¦Рћ РљСѓРґСЂРѕРІР°', 1240)
-
-insert [WinType]
-Values ('РџРѕР±РµРґРёР»Рё'),('РџСЂРѕРёРіСЂР°Р»Рё')
-
-insert [Match]
-Values (1,1,2,1,1),(1,1,2,2,2)
+insert [User] 
+Values ('Костя'),('Матвей'),('Вера'),('Паша'),('Кирилл'),('Гриша'),('Слава'),('Алина'),('Вова'),('Настя') 
+ 
+insert [Team] 
+Values ('Звёздочки'),('Победители') 
+ 
+insert [User_Team] 
+Values (1,1),(2,1),(3,1),(4,1),(5,1),(6,2),(7,2),(8,2),(9,2),(10,2) 
+ 
+insert [Discipline] 
+Values ('Волейбол') 
+ 
+insert [Tournament] 
+Values ('Чемпионат России', 1, 1) 
+ 
+insert [Team_Tournament] 
+Values (1,1,'Школа ЦО Кудрова', 1240), (2,1,'Школа ЦО Кудрова', 1240) 
+ 
+insert [WinType] 
+Values ('Победили'),('Проиграли') 
+ 
+insert [Match] 
+Values (1,1,2,1,1),(1,1,2,2,2) 
 
 select * from [User]
 select * from [Team]
@@ -135,3 +138,53 @@ select * from [Tournament]
 select * from [Team_Tournament]
 select * from [WinType]
 select * from [Match]
+
+Create procedure GetTournamentTimeByTournamentId
+@Id int
+as
+select T.[Name], TT.[Time] from Team_Tournament as TT
+inner join [Tournament] as T on T.Id=TT.TournamentId
+group by T.[Name], TT.[Time] 
+go
+exec GetTournamentTimeByTournamentId 1 
+
+Create procedure GetTournamentMestoByTournamentId
+@Id int
+as
+select T.[Name], TT.[Mesto] from Team_Tournament as TT
+inner join [Tournament] as T on T.Id=TT.TournamentId
+group by T.[Name], TT.[Mesto] 
+go
+exec GetTournamentMestoByTournamentId 1 
+
+Create procedure GetAllTournamentsWhereParticipatedTeamByTeamId
+@Id int
+as
+select Team.[Name], T.[Name] from Tournament as T
+inner join [Team_Tournament] as TT on TT.TournamentId=T.Id
+inner join [Team] on Team.Id=TT.TeamId
+where Team.Id=@Id
+group by Team.[Name], T.[Name]
+go
+exec GetAllTournamentsWhereParticipatedTeamByTeamId 2
+
+Create procedure GetTeamNameByTournamentId
+@Id int
+as
+select T.[Id], Team.[Name] from Team
+inner join [Team_Tournament] as TT on TT.TournamentId=Team.Id
+inner join [Tournament] as T on T.Id=TT.TournamentId
+where T.Id=@Id
+group by T.[Id], Team.[Name]
+go
+exec GetTeamNameByTournamentId 1
+
+Create procedure GetParticipantsByTeamId
+@Id int
+as
+select U.[Name] from [Team] as Te
+inner join [User_Team] as U_T on Te.Id = U_T.TeamId
+inner join [User] as U on U.Id = U_T.UserId
+where Te.Id = @Id
+go
+exec GetParticipantsByTeamId 1
