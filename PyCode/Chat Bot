@@ -1,7 +1,7 @@
 import sqlite3
 import telebot
 
-#Имя бота - scool_kudr_bot
+#Имя бота - school_kudr_bot
 bot = telebot.TeleBot("5919178161:AAEzg3bsabXIkscQv7sSFlM32Q6XmPMYWL0")
 
 #anketa2.db - созданный на локальной ПК файл с данными в SQLite
