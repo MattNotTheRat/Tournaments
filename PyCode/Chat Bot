@@ -1,0 +1,30 @@
+import sqlite3
+import telebot
+
+#Имя бота - scool_kudr_bot
+bot = telebot.TeleBot("5919178161:AAEzg3bsabXIkscQv7sSFlM32Q6XmPMYWL0")
+
+#anketa2.db - созданный на локальной ПК файл с данными в SQLite
+conn = sqlite3.connect('anketa2.db', check_same_thread=False)
+cursor = conn.cursor()
+
+# Добавляем сообщение в таблицу с данными
+def db_table_val(user_id: int, text: str):
+	cursor.execute('INSERT INTO user_message (user_id, text) VALUES (?, ?)', (user_id, text))
+	conn.commit()
+
+@bot.message_handler(commands=['start'])
+def start_message(message):
+	bot.send_message(message.chat.id, 'Добро пожаловать')
+
+#Передаем сообщение из телеграм в функцию db_table_val
+@bot.message_handler(content_types=['text'])
+def get_text_messages(message):
+    #if message.text.lower() == 'привет':
+        bot.send_message(message.from_user.id, 'Привет! Ваше сообщение добавлено в базу данных!')
+        us_id = message.from_user.id
+        us_name = message.text
+        db_table_val(user_id=us_id, text=us_name)
+
+
+bot.polling(none_stop=True)
