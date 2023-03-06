@@ -1,0 +1,41 @@
+import sqlite3
+
+_connection = None
+
+def get_connection():
+    global _connection
+    if _connection is None:
+        _connection = sqlite3.connect('anketa2.db')
+    return _connection
+
+def init_db(force: bool = False):
+    # Проверить, что нужные таблицы существуют иначе создать их
+    conn = get_connection()
+
+    c = conn.cursor()
+
+    if force:
+        c.execute('DROP TABLE IF EXISTS user_message')
+
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS user_message (
+        id       INTEGER PRIMARY KEY,
+        user_id  TEXT NOT NULL,
+        text     TEXT NOT NULL
+        )
+    ''')
+
+    conn.commit()
+
+def add_message(user_id: int, text: str):
+    conn = get_connection()
+    c = conn.cursor()
+    c.execute('INSERT INTO user_message (user_id, text) VALUES (?, ?)', (user_id, text))
+    conn.commit()
+    conn.close()
+
+
+init_db()
+
+add_message(user_id='Твой ID 777', text='Привет')
+
