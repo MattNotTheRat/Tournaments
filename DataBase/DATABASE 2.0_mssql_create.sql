@@ -135,3 +135,16 @@ select * from [Tournament]
 select * from [Team_Tournament]
 select * from [WinType]
 select * from [Match]
+
+---Хранимая процедура. Узнать названия команд в соревновании (по Id )
+
+CREATE PROCEDURE FindNamesOfTeam
+@TournamentId int
+AS
+SELECT t.Name AS TeamNames 
+FROM Team t
+inner join Team_Tournament t1 on t1.TeamId=t1.Id
+VALUES(@TournamentId int)
+GO
+
+EXEC FindNamesOfTeam @TournamentId = id
