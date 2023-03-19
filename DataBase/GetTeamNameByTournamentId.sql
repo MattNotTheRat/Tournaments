@@ -143,7 +143,7 @@ as
 select T.[Name], TT.[Time] from Team_Tournament as TT
 inner join [Tournament] as T on T.Id=TT.TournamentId
 group by T.[Name], TT.[Time] 
-
+go
 exec GetTournamentTimeByTournamentId 1 
 
 Create procedure GetTournamentMestoByTournamentId
@@ -152,7 +152,7 @@ as
 select T.[Name], TT.[Mesto] from Team_Tournament as TT
 inner join [Tournament] as T on T.Id=TT.TournamentId
 group by T.[Name], TT.[Mesto] 
-
+go
 exec GetTournamentMestoByTournamentId 1 
 
 Create procedure GetAllTournamentsWhereParticipatedTeamByTeamId
@@ -163,7 +163,7 @@ inner join [Team_Tournament] as TT on TT.TournamentId=T.Id
 inner join [Team] on Team.Id=TT.TeamId
 where Team.Id=@Id
 group by Team.[Name], T.[Name]
-
+go
 exec GetAllTournamentsWhereParticipatedTeamByTeamId 2
 
 Create procedure GetTeamNameByTournamentId
@@ -174,7 +174,7 @@ inner join [Team_Tournament] as TT on TT.TournamentId=Team.Id
 inner join [Tournament] as T on T.Id=TT.TournamentId
 where T.Id=@Id
 group by T.[Id], Team.[Name]
-
+go
 exec GetTeamNameByTournamentId 1
 
 CREATE PROCEDURE FindNamesOfTeam
