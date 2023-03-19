@@ -176,3 +176,24 @@ where T.Id=@Id
 group by T.[Id], Team.[Name]
 
 exec GetTeamNameByTournamentId 1
+
+CREATE PROCEDURE FindNamesOfTeam
+@TournamentId int
+AS
+SELECT t.Name AS TeamNames 
+FROM Team t
+inner join Team_Tournament t1 on t1.TeamId=t1.Id
+VALUES(@TournamentId int)
+GO
+
+EXEC FindNamesOfTeam @TournamentId = id
+
+Create procedure GetParticipantsByTeamId
+@Id int
+as
+select U.[Name] from [Team] as Te
+inner join [User_Team] as U_T on Te.Id = U_T.TeamId
+inner join [User] as U on U.Id = U_T.UserId
+where Te.Id = @Id
+go
+exec GetParticipantsByTeamId 1
