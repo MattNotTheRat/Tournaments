@@ -153,12 +153,30 @@ inner join [Tournament] as T on T.Id=TT.TournamentId
 group by T.[Name], TT.[Time] 
 go
 
+Create procedure UpdateTournamentTime
+	@IdTourn INT,
+	@Time INT
+as
+UPDATE [Team_Tournament]
+set [Time] = @Time
+where  TournamentId=@IdTourn
+go
+
 Create procedure GetTournamentMestoByTournamentId
 @Id int
 as
 select T.[Name], TT.[Mesto] from Team_Tournament as TT
 inner join [Tournament] as T on T.Id=TT.TournamentId
 group by T.[Name], TT.[Mesto] 
+go
+
+Create procedure UpdateTournamentMesto
+	@IdTourn INT,
+	@Mesto NVARCHAR (50)
+as
+UPDATE [Team_Tournament]
+set [Mesto] = @Mesto
+where  TournamentId=@IdTourn
 go
 
 Create procedure GetAllTournamentsWhereParticipatedTeamByTeamId
@@ -208,10 +226,24 @@ INSERT [Team_Tournament]([TeamId],[TournamentId],[Mesto],[Time])
 VALUES (@IdTeam,@IdTournament,@Mesto,@Time)
 go
 
+Create procedure DeleteTeamFromTournament
+	@TeamId Int	
+as
+DELETE [Team_Tournament]
+where TeamId = @TeamId
+go
+
 Create procedure AddUserInTeam
 	@UserId Int,
 	@TeamId Int
 as
 insert [User_Team]([UserId],[TeamId])
 VALUES(@UserId,@TeamId)
+go
+
+Create procedure DeleteUserFromTeam
+	@UserId Int	
+as
+DELETE [User_Team]
+where UserId=@UserId
 go
