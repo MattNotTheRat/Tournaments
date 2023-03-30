@@ -152,8 +152,6 @@ select T.[Name], TT.[Time] from Team_Tournament as TT
 inner join [Tournament] as T on T.Id=TT.TournamentId
 group by T.[Name], TT.[Time] 
 go
-exec GetTournamentTimeByTournamentId 1 
-go
 
 Create procedure GetTournamentMestoByTournamentId
 @Id int
@@ -161,8 +159,6 @@ as
 select T.[Name], TT.[Mesto] from Team_Tournament as TT
 inner join [Tournament] as T on T.Id=TT.TournamentId
 group by T.[Name], TT.[Mesto] 
-go
-exec GetTournamentMestoByTournamentId 1 
 go
 
 Create procedure GetAllTournamentsWhereParticipatedTeamByTeamId
@@ -174,31 +170,14 @@ inner join [Team] on Team.Id=TT.TeamId
 where Team.Id=@Id
 group by Team.[Name], T.[Name]
 go
-exec GetAllTournamentsWhereParticipatedTeamByTeamId 2
-go
 
 Create procedure GetTeamNameByTournamentId
 @Id int
 as
-select T.[Id], Team.[Name] from Team
-inner join [Team_Tournament] as TT on TT.TournamentId=Team.Id
-inner join [Tournament] as T on T.Id=TT.TournamentId
-where T.Id=@Id
-group by T.[Id], Team.[Name]
-go
-exec GetTeamNameByTournamentId 2
-go
-
-CREATE PROCEDURE FindNamesOfTeam
-@TournamentId int
-AS
-SELECT t.Name AS TeamNames 
-FROM Team t
-inner join Team_Tournament t1 on t1.TeamId=t1.Id
-VALUES(@TournamentId int)
-go
-
-EXEC FindNamesOfTeam @TournamentId = id
+select TT.[TournamentId], Team.[Name] from Team
+inner join [Team_Tournament] as TT on TT.TeamId=Team.Id
+where TT.[TournamentId] = @Id
+group by TT.[TournamentId], Team.[Name]
 go
 
 Create procedure GetParticipantsByTeamId
@@ -209,8 +188,6 @@ inner join [User_Team] as U_T on Te.Id = U_T.TeamId
 inner join [User] as U on U.Id = U_T.UserId
 where Te.Id = @Id
 go
-exec GetParticipantsByTeamId 1
-go
 
 Create procedure AddTournament
 	@Name NVARCHAR(50),
@@ -220,15 +197,21 @@ AS
 INSERT [Tournament]([Name],[DisciplineId],[OwnerId])
 VALUES (@Name, @DisciplineId, @OwnerId)
 go
-exec AddTournament 'Соревнование по волейболу в Крыму',1,1
-go
 
 Create procedure AddTeamInTournament
 	@IdTeam INT,
-	@IdTournament INT
+	@IdTournament INT,
+	@Mesto NVARCHAR (50),
+	@Time INT
 AS
-INSERT [Team_Tournament]([TeamId])
-VALUES (@IdTeam)
-
+INSERT [Team_Tournament]([TeamId],[TournamentId],[Mesto],[Time])
+VALUES (@IdTeam,@IdTournament,@Mesto,@Time)
 go
-exec AddTeamInTournament 1
+
+Create procedure AddUserInTeam
+	@UserId Int,
+	@TeamId Int
+as
+insert [User_Team]([UserId],[TeamId])
+VALUES(@UserId,@TeamId)
+go
