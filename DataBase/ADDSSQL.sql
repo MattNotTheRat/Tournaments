@@ -220,7 +220,7 @@ AS
 INSERT [Tournament]([Name],[DisciplineId],[OwnerId])
 VALUES (@Name, @DisciplineId, @OwnerId)
 go
-exec AddTournament '������������ �� ��������� � �����',1,1
+exec AddTournament 'Соревнование по волейболу в Крыму',1,1
 go
 
 Create procedure AddTeamInTournament
