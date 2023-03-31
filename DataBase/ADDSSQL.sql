@@ -261,3 +261,12 @@ as
 INSERT [Team]([Name])
 Values (@TeamName)
 go
+
+Create procedure CreateTournament
+	@TournamentName NVARCHAR(50),
+	@DiciplineId INT,
+	@OwnerId INT
+as
+INSERT [Tournament]([Name],[DisciplineId],[OwnerId])
+Values (@TournamentName,@DiciplineId,@OwnerId)
+go
