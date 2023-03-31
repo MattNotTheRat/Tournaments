@@ -216,6 +216,13 @@ INSERT [Tournament]([Name],[DisciplineId],[OwnerId])
 VALUES (@Name, @DisciplineId, @OwnerId)
 go
 
+Create procedure DeleteTournament
+	@TournamentId INT
+as
+DELETE [Tournament]
+where Id=@TournamentId
+go
+
 Create procedure AddTeamInTournament
 	@IdTeam INT,
 	@IdTournament INT,
@@ -255,9 +262,23 @@ INSERT [User]([Name])
 Values(@Name)
 go
 
+Create procedure DeleteUser
+	@UserId INT
+as
+DELETE [User]
+where Id=@UserId
+go
+
 Create procedure CreateTeam
 	@TeamName NVARCHAR(50)
 as
 INSERT [Team]([Name])
 Values (@TeamName)
+go
+
+Create procedure DeleteTeam
+	@TeamId INT
+as
+DELETE [Team]
+where Id=@TeamId
 go
