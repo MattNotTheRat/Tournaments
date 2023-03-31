@@ -207,7 +207,7 @@ inner join [User] as U on U.Id = U_T.UserId
 where Te.Id = @Id
 go
 
-Create procedure AddTournament
+Create procedure CreateTournament
 	@Name NVARCHAR(50),
 	@DisciplineId INT,
 	@OwnerId INT
@@ -260,13 +260,4 @@ Create procedure CreateTeam
 as
 INSERT [Team]([Name])
 Values (@TeamName)
-go
-
-Create procedure CreateTournament
-	@TournamentName NVARCHAR(50),
-	@DiciplineId INT,
-	@OwnerId INT
-as
-INSERT [Tournament]([Name],[DisciplineId],[OwnerId])
-Values (@TournamentName,@DiciplineId,@OwnerId)
 go
