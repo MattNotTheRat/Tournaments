@@ -254,3 +254,10 @@ as
 INSERT [User]([Name])
 Values(@Name)
 go
+
+Create procedure CreateTeam
+	@TeamName NVARCHAR(50)
+as
+INSERT [Team]([Name])
+Values (@TeamName)
+go
