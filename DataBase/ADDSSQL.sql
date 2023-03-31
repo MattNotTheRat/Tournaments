@@ -247,3 +247,10 @@ as
 DELETE [User_Team]
 where UserId=@UserId
 go
+
+Create procedure CreateUser
+	@Name NVARCHAR(50)
+as
+INSERT [User]([Name])
+Values(@Name)
+go
