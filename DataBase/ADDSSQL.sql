@@ -282,3 +282,33 @@ as
 DELETE [Team]
 where Id=@TeamId
 go
+
+CREATE procedure SelectUser
+as
+select * from [User]
+go
+
+CREATE procedure SelectTournament
+as
+select * from [Tournament]
+go
+
+CREATE procedure SelectTeam_Tournament
+as
+select * from [Team_Tournament]
+go
+
+CREATE procedure SelectTeam
+as
+select * from [Team]
+go
+
+CREATE procedure SelectUser_Team
+as
+select * from [User_Team]
+go
+
+CREATE procedure SelectDiscipline
+as
+select * from [Discipline]
+go
