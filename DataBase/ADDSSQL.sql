@@ -282,3 +282,17 @@ as
 DELETE [Team]
 where Id=@TeamId
 go
+
+Create procedure CreateDiscipline
+	@Name nvarchar(50)
+as
+INSERT [Discipline]([Name])
+Values(@Name)
+go
+
+Create procedure DeleteDiscipline
+	@Id INT
+as
+DELETE [Discipline]
+where Id = @Id
+go
